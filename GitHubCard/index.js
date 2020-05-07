@@ -14,24 +14,6 @@ axios.get('https://api.github.com/users/JDMTias')
 */ 
 
 /*
-  STEP 4: Pass the data received from Github into your function,
-    and append the returned markup to the DOM as a child of .cards
-*/
-
-/*
-  STEP 5: Now that you have your own card getting added to the DOM, either
-    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
-    manually find some other users' github handles, or use the list found at the
-    bottom of the page. Get at least 5 different Github usernames and add them as
-    Individual strings to the friendsArray below.
-
-    Using that array, iterate over it, requesting data for each user, creating a new card for each
-    user, and adding that card to the DOM.
-*/
-
-const followersArray = [];
-
-/*
   STEP 3: Create a function that accepts a single object as its only argument.
     Using DOM methods and properties, create and return the following markup:
 
@@ -59,7 +41,7 @@ const followersArray = [];
     luishrd
     bigknell
 */
-function cardMaker (object) {
+function cardMaker (obj) {
   
   // addind elements
   const card = document.createElement('div');
@@ -87,16 +69,71 @@ cardInfo.appendChild(followers);
 cardInfo.appendChild(following);
 cardInfo.appendChild(bio);
 
-// adding class names
-
-card.classList.add('class');
-cardInfo.classList.add('class-info');
-name.classList.add('name')
-userName.classList.add('username');
-
 // adding context
 
-pic.src = avatar_url;
+pic.src = obj.avatar_url;
+name.textContent = obj.name;
+userName.textContent = obj.login;
+location.textContent = obj.location;
+profile.textContent = 'Profile :';
+userPage.href =obj.html_url;
+userPage.textContent = obj.html_url;
+followers.textContent = `Followers: ${obj.followers}`;
+following.textContent = `Following: ${obj.following}`;
+bio.textContent = 'Bio:';
+bio.textContent = obj.bio;
 
+// adding class names
 
+card.classList.add('card');
+cardInfo.classList.add('card-info');
+nameTitle.classList.add('name');
+userName.classList.add('username'); 
+
+return card;
 }
+
+/*
+  STEP 4: Pass the data received from Github into your function,
+    and append the returned markup to the DOM as a child of .cards
+*/
+
+function getGithub(username) {
+  axios.get(`https://api.github.com/users/${username}`)
+    .then(response => {
+      console.log("GitHub did a good job")
+      const data = response.data
+        const user = cardMaker(data)
+        document.querySelector(".cards").appendChild(user)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+    .finally(() => {
+      console.log('done')
+    })
+}
+getGithub('JDMTias');
+
+/*
+  STEP 5: Now that you have your own card getting added to the DOM, either
+    follow this link in your browser https://api.github.com/users/<Your github name>/followers,
+    manually find some other users' github handles, or use the list found at the
+    bottom of the page. Get at least 5 different Github usernames and add them as
+    Individual strings to the friendsArray below.
+
+    Using that array, iterate over it, requesting data for each user, creating a new card for each
+    user, and adding that card to the DOM.
+*/
+
+const followersArray = ['meep-morp','garybot', 'KSClopton'];
+
+function findFriends (fiendsArr) {
+  for (let i=0; i=friendArr.length; i++){
+    getGithub(friendsArr[i]);
+  }
+}
+  
+findFriends(followersArr);
+
+
