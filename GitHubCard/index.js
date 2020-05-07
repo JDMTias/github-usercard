@@ -101,8 +101,9 @@ return card;
 function getGithub(username) {
   axios.get(`https://api.github.com/users/${username}`)
     .then(response => {
-      console.log("GitHub did a good job")
+      console.log(response)
       const data = response.data
+      console.log(data)
         const user = cardMaker(data)
         document.querySelector(".cards").appendChild(user)
     })
@@ -128,12 +129,6 @@ getGithub('JDMTias');
 
 const followersArray = ['meep-morp','garybot', 'KSClopton'];
 
-function findFriends (fiendsArr) {
-  for (let i=0; i=friendArr.length; i++){
-    getGithub(friendsArr[i]);
-  }
-}
-  
-findFriends(followersArr);
-
-
+followersArray.forEach((follower) => { 
+  getGithub(follower)
+})
