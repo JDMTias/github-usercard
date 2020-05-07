@@ -3,14 +3,15 @@
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/JDMTias')
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
     data in order to use it to build your component function
-
+    Done!
     Skip to STEP 3.
-*/
+*/ 
 
 /*
   STEP 4: Pass the data received from Github into your function,
@@ -58,3 +59,44 @@ const followersArray = [];
     luishrd
     bigknell
 */
+function cardMaker (object) {
+  
+  // addind elements
+  const card = document.createElement('div');
+  const pic = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const nameTitle = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const userPage = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+// possitioning things where they go.
+
+card.appendChild(pic);
+card.appendChild(cardInfo);
+cardInfo.appendChild(nameTitle);
+cardInfo.appendChild(userName);
+cardInfo.appendChild(location);
+cardInfo.appendChild(profile);
+profile.appendChild(userPage);
+cardInfo.appendChild(followers);
+cardInfo.appendChild(following);
+cardInfo.appendChild(bio);
+
+// adding class names
+
+card.classList.add('class');
+cardInfo.classList.add('class-info');
+name.classList.add('name')
+userName.classList.add('username');
+
+// adding context
+
+pic.src = avatar_url;
+
+
+}
